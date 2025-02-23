@@ -10,9 +10,9 @@ import { fetchUserById } from './store/slice/UserSlice';
 function App() {
   let dispatch = useDispatch()
   let userDetails = useSelector((state)=>state.user)
-  console.log(userDetails)
+  // console.log(userDetails)
   let token = userDetails.token
-  console.log(token)
+  // console.log(token)
 
   useEffect(()=>{
     dispatch(fetchUserById(token))

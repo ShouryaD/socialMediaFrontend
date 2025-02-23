@@ -31,9 +31,13 @@ let router = createBrowserRouter(
         } />
       <Route path='/register' element={<SignUp />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/userPage' element={<UserPage />} />
+      <Route path='/userPage' element={
+        <Protected>
+          <UserPage />
+        </Protected>
+        } />
       <Route path='/forgotPassword' element={<ForgetPassword />} />
-      <Route path='/cara' element={<Caraousel />} />
+      {/* <Route path='/cara' element={<Caraousel />} /> */}
       <Route path='/*' element={<Pnf />} />
     </Route>
   )
