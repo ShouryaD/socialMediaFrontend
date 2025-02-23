@@ -34,7 +34,7 @@ function Chat(props) {
 
     let getMessage = async () => {
         // console.log(userToken.token)
-        let data = await axios.get(Endpoint +`/message/getMessage/${props.id._id}`, {
+        let data = await axios.get(Endpoint +`/message/getMessage/${props?.id?._id}`, {
             headers: {
                 'Authorization': userToken.token
             }
@@ -48,7 +48,7 @@ function Chat(props) {
     }
 
     let handleMessage = async () => {
-        socketRef.current.emit('sendMessage', { recieverId: props?.id?._id, userId: userToken?.user?.userDetails._id, message: inp })
+        socketRef.current.emit('sendMessage', { recieverId: props?.id?._id, userId: userToken?.user?.userDetails?._id, message: inp })
 
         let data = await axios.post(Endpoint + '/message/create', { recieverId: props?.id?._id, message: inp }, {
             headers: {
@@ -64,7 +64,7 @@ function Chat(props) {
 
     useEffect(() => {
         socketRef.current = io(Endpoint, { transports: ['websocket'] });
-        socketRef.current.emit('addUser', userToken?.user?.userDetails._id)
+        socketRef.current.emit('addUser', userToken?.user?.userDetails?._id)
     }, [])
     useEffect(()=>{
         socketRef.current.on("getMessage", ({ recieverId, userId, message })=>{
@@ -92,18 +92,18 @@ function Chat(props) {
                 <ScrollToBottom className='overflow-auto mb-1'>
                     {message.map((ele, key) => (
                         <div key={key} className='flex items-center'>
-                            {ele.senderId == userToken.user.userDetails._id ?
+                            {ele.senderId == userToken?.user?.userDetails?._id ?
                                 <div className='flex gap-2'>
                                     <div className='w-40 p-2 rounded text-end text-sm bg-blue-400 mb-2 ms-36'>{ele.message}
                                         <span className='text-xs block'>{formatDistanceToNow(ele.createdAt, {addSuffix:true})}</span>
                                     </div>
-                                    {ele.senderId == userToken.user.userDetails._id && user.map((item, key) => (
+                                    {ele.senderId == userToken?.user?.userDetails?._id && user.map((item, key) => (
                                         userId == item._id && <img key={key} className='h-10 w-10 rounded-full inline border border-black' src={item.profilePic} alt={item.name[0]}></img>
                                     ))}
                                 </div>
                                 :
                                 <div className='flex gap-2'>
-                                    {ele.senderId != userToken.user.userDetails._id && user.map((item, key) => (
+                                    {ele.senderId != userToken?.user?.userDetails?._id && user.map((item, key) => (
                                         userId != item._id && <img key={key} className='h-10 w-10 rounded-full border border-black' src={item.profilePic} alt={item.name[0]}></img>
                                     ))}
                                     <div className='w-40 text-sm p-2 rounded bg-green-400 mb-2'>{ele.message}
