@@ -7,7 +7,8 @@ import ScrollToBottom from 'react-scroll-to-bottom'
 import {formatDistanceToNow} from 'date-fns'
 
 function Chat(props) {
-    const Endpoint = "http://localhost:3000"
+    // const Endpoint = "http://localhost:3000"
+    let Endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env.VITE_ENDPOINT :'http://127.0.0.1:3000'
     let socketRef = useRef()
     let [message, setMessage] = useState([])
     // console.log(message)
@@ -33,7 +34,7 @@ function Chat(props) {
 
     let getMessage = async () => {
         // console.log(userToken.token)
-        let data = await axios.get(`http://localhost:3000/message/getMessage/${props.id._id}`, {
+        let data = await axios.get(Endpoint +`/message/getMessage/${props.id._id}`, {
             headers: {
                 'Authorization': userToken.token
             }
@@ -49,7 +50,7 @@ function Chat(props) {
     let handleMessage = async () => {
         socketRef.current.emit('sendMessage', { recieverId: props.id._id, userId: userToken?.user?.userDetails._id, message: inp })
 
-        let data = await axios.post('http://localhost:3000/message/create', { recieverId: props.id._id, message: inp }, {
+        let data = await axios.post(Endpoint + '/message/create', { recieverId: props.id._id, message: inp }, {
             headers: {
                 'Authorization': userToken.token
             }
