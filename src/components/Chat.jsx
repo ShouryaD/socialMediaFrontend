@@ -48,9 +48,9 @@ function Chat(props) {
     }
 
     let handleMessage = async () => {
-        socketRef.current.emit('sendMessage', { recieverId: props.id._id, userId: userToken?.user?.userDetails._id, message: inp })
+        socketRef.current.emit('sendMessage', { recieverId: props?.id?._id, userId: userToken?.user?.userDetails._id, message: inp })
 
-        let data = await axios.post(Endpoint + '/message/create', { recieverId: props.id._id, message: inp }, {
+        let data = await axios.post(Endpoint + '/message/create', { recieverId: props?.id?._id, message: inp }, {
             headers: {
                 'Authorization': userToken.token
             }
@@ -60,7 +60,7 @@ function Chat(props) {
         setInp('')
     }
 
-    let userId = userToken.user.userDetails._id
+    let userId = userToken?.user?.userDetails?._id
 
     useEffect(() => {
         socketRef.current = io(Endpoint, { transports: ['websocket'] });
