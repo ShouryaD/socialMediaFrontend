@@ -8,7 +8,7 @@ const initialState = {
   user: userDetails ? userDetails.user : '',
   foundUser: ''
 }
-let endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env.VITE_ENDPOINT :'http://127.0.0.1:3000'
+let endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env.VITE_ENDPOINT : 'http://127.0.0.1:3000'
 export const fetchUserById = createAsyncThunk(
   'users/fetchByIdStatus',
   async (token) => {
@@ -28,17 +28,17 @@ export const fetchUserById = createAsyncThunk(
 //   },
 // )
 
-export const fetchMessages = createAsyncThunk(
-  'users/fetchMessages',
-  async (token, recieverId) => {
-    const response = await axios.get('http://localhost:3000/message/getMessage', { recieverId }, {
-      headers: {
-        'Authorization': token
-      }
-    })
-    return response.data
-  }
-)
+// export const fetchMessages = createAsyncThunk(
+//   'users/fetchMessages',
+//   async (token, recieverId) => {
+//     const response = await axios.get('http://localhost:3000/message/getMessage', { recieverId }, {
+//       headers: {
+//         'Authorization': token
+//       }
+//     })
+//     return response.data
+//   }
+// )
 
 export const UserSlice = createSlice({
   name: 'UserSlice',
@@ -66,22 +66,23 @@ export const UserSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserById.fulfilled, (state, action) => {
-      console.log(action.payload)
+      // console.log(action.payload)
       state.user = action.payload
       // localStorage.setItem('twitterLogin', JSON.stringify({...state, user:action.payload}))
-    }),
-      builder.addCase(fetchUserById.rejected, (state, action) => {
-        console.log(action.payload)
-      })
+    })
+    // ,
+    // builder.addCase(fetchUserById.rejected, (state, action) => {
+    //   console.log(action.payload)
+    // })
     // builder.addCase(searchUser.fulfilled, (state, action) => {
     //   console.log('User Searched')
     //   state.foundUser = action.payload
     //   console.log(state.foundUser)
     // })
-    builder.addCase(fetchMessages.fulfilled, (state, action) => {
-      console.log(state.user)
-    })
-  },
+    // builder.addCase(fetchMessages.fulfilled, (state, action) => {
+    //   console.log(state.user)
+    // })
+  }
 })
 
 // Action creators are generated for each case reducer function

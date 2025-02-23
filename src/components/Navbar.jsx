@@ -23,8 +23,9 @@ const pages = ['Profile', 'SignIn', 'SignUp'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
+  let endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env.VITE_ENDPOINT :'http://localhost:3000'
   let dispatch = useDispatch()
-  let [searchUsers, setSearchUsers] = useState([])
+  // let [searchUsers, setSearchUsers] = useState([])
   let data = useSelector((state) => state.user)
   console.log(data.user)
   let login = data.login
@@ -50,7 +51,7 @@ function Navbar() {
   let [search, setSearch] = useState([])
   const handleSearch = async (e) => {
     console.log(e.target.value)
-    let users = await axios.get(`http://127.0.0.1:3000/users/search?name=${e.target.value}`)
+    let users = await axios.get(endpoint + `/users/search?name=${e.target.value}`)
     setSearch(users.data.user)
   }
 

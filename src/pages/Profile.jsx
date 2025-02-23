@@ -350,7 +350,7 @@ function Profile() {
         </div>
 
       </div>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Comments" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <section className="relative flex items-center justify-center antialiased bg-white">
           <div className="container px-0 mx-auto sm:px-5">
             {selectedObj?.comments?.map((ele, key) => (

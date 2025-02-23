@@ -21,8 +21,8 @@ function Login() {
 
     let handleSubmit = async (e) => {
         let res = await axios.post(endpoint + '/users/login', details)
-        console.log(details)
-        console.log(res.data)
+        // console.log(details)
+        // console.log(res.data)
         if (res.data.success) {
             toast.success(res.data.success, { position: 'top-center' })
             dispatch(setState(res.data.user))

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 function SignUp() {
 let endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env.VITE_ENDPOINT :'http://127.0.0.1:3000'
     let ctx = useSelector((state)=>state.user)
-    console.log(ctx)
+    // console.log(ctx)
 
     let nameRef = useRef()
     let emailRef = useRef()
@@ -20,7 +20,7 @@ let endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env
             email: emailRef.current.value,
             password: passwordRef.current.value
         }
-        console.log(obj)
+        // console.log(obj)
         let res = await fetch(endpoint + '/users/register', {
             method: "POST",
             headers:{
@@ -31,7 +31,7 @@ let endpoint = import.meta.env.VITE_DEPLOYMENT == 'PRODUCTION' ? import.meta.env
             body:JSON.stringify(obj)
         })
         let data = await res.json()
-        console.log(data)
+        // console.log(data)
         if(data.success){
             toast.success(data.msg, {
                 position: 'top-center'
